@@ -16,7 +16,7 @@ from dotenv import load_dotenv
 
 
 load_dotenv()
-ALLOWED_HOSTS = ['.onrender.com']
+ALLOWED_HOSTS = ['*']
 
 
 
