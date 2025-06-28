@@ -16,6 +16,8 @@ from dotenv import load_dotenv
 
 
 load_dotenv()
+ALLOWED_HOSTS = ['.onrender.com']
+
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
