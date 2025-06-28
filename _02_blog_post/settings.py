@@ -16,7 +16,7 @@ from dotenv import load_dotenv
 
 
 load_dotenv()
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['quickblog-django.onrender.com']
 
 
 
