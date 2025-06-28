@@ -35,8 +35,6 @@ distro==1.9.0
 Django==5.2.2
 django-tinymce==4.1.0
 django-tinymce4==3.0.2
-dlib @ file:///C:/Users/Prashant/Downloads/Dlib/Dlib_Windows_Python3.x-main/dlib-19.24.99-cp312-cp312-win_amd64.whl#sha256=20c62e606ca4c9961305f7be3d03990380d3e6c17f8d27798996e97a73271862
-dnspython==2.6.1
 dotenv==0.9.9
 et_xmlfile==2.0.0
 eventlet==0.36.1
