@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,48 +16,77 @@
     }
   </style>
 </head>
-{% include 'header.html' %}
-<body class="bg-gradient-to-br from-purple-500 via-pink-500 to-red-400 min-h-screen flex items-center justify-center">
+<body class="bg-gradient-to-br from-purple-500 via-pink-500 to-red-400 min-h-screen">
 
-  <div class="w-full max-w-md p-8 rounded-2xl shadow-xl register-card text-gray-800">
-    {% comment %} {% if messages %}
-      {% for message in messages %}
-        <div class="mb-4 p-3 bg-green-100 border border-green-300 rounded text-sm text-green-800">
-          {{ message }}
+  <!-- Header -->
+  <header class="bg-white shadow-md sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between h-16 items-center">
+        <a href="/" class="text-xl font-bold text-purple-700">QuickBlog</a>
+        <nav class="space-x-4 hidden md:flex">
+          <a href="{% url 'register' %}" class="text-gray-700 hover:text-purple-700 font-medium">Register</a>
+          <a href="{% url 'loginUser' %}" class="text-gray-700 hover:text-purple-700 font-medium">Login</a>
+        </nav>
+        <!-- Mobile Menu Button -->
+        <div class="md:hidden">
+          <button id="menu-toggle" class="text-gray-700 focus:outline-none">
+            ☰
+          </button>
         </div>
-      {% endfor %}
-    {% endif %} {% endcomment %}
-
-    <h2 class="text-2xl font-extrabold text-center mb-6">Create a Blog Account</h2>
-    
-    <form method="POST" action="{% url 'register' %}" class="space-y-5">
-      {% csrf_token %}
-      {{ form.as_p }}
-
-      {% if form.errors %}
-      <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded text-sm">
-        <ul>
-          {% for field in form %}
-            {% for error in field.errors %}
-              <li><strong>{{ field.label }}:</strong> {{ error }}</li>
-            {% endfor %}
-          {% endfor %}
-          {% for error in form.non_field_errors %}
-            <li>{{ error }}</li>
-          {% endfor %}
-        </ul>
       </div>
-      {% endif %}
+    </div>
 
-      <button type="submit" class="w-full bg-purple-700 hover:bg-purple-900 text-white font-bold py-2 px-4 rounded-lg transition-all">
-        Register
-      </button>
-    </form>
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="md:hidden hidden px-4 pb-4 bg-white">
+      <a href="{% url 'register' %}" class="block py-2 text-gray-700 hover:text-purple-700">Register</a>
+      <a href="{% url 'loginUser' %}" class="block py-2 text-gray-700 hover:text-purple-700">Login</a>
+    </div>
 
-    <p class="text-center mt-4 text-sm text-white">
-      Already have an account? 
-      <a href="{% url 'loginUser' %}" class="underline font-semibold hover:text-black">Login</a>
-    </p>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const toggle = document.getElementById("menu-toggle");
+        const menu = document.getElementById("mobile-menu");
+        toggle.addEventListener("click", () => {
+          menu.classList.toggle("hidden");
+        });
+      });
+    </script>
+  </header>
+
+  <!-- Register Form -->
+  <div class="flex items-center justify-center mt-10 px-4">
+    <div class="w-full max-w-md p-8 rounded-2xl shadow-xl register-card text-gray-800 bg-white">
+      <h2 class="text-2xl font-extrabold text-center mb-6">Create a Blog Account</h2>
+      
+      <form method="POST" action="{% url 'register' %}" class="space-y-5">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        {% if form.errors %}
+        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded text-sm">
+          <ul>
+            {% for field in form %}
+              {% for error in field.errors %}
+                <li><strong>{{ field.label }}:</strong> {{ error }}</li>
+              {% endfor %}
+            {% endfor %}
+            {% for error in form.non_field_errors %}
+              <li>{{ error }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+        {% endif %}
+
+        <button type="submit" class="w-full bg-purple-700 hover:bg-purple-900 text-white font-bold py-2 px-4 rounded-lg transition-all">
+          Register
+        </button>
+      </form>
+
+      <p class="text-center mt-4 text-sm text-white">
+        Already have an account? 
+        <a href="{% url 'loginUser' %}" class="underline font-semibold hover:text-black">Login</a>
+      </p>
+    </div>
   </div>
 
 </body>
