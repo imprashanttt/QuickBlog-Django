@@ -16,7 +16,7 @@ from dotenv import load_dotenv
 
 
 load_dotenv()
-ALLOWED_HOSTS = ['quickblog-django.onrender.com']
+
 
 
 
@@ -33,7 +33,7 @@ SECRET_KEY = "django-insecure-&12u#u5u&10ij8_+ps=vi04vu_46wi8h=0l&aoc69(ks!z-a3s
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['quickblog-django.onrender.com']
 
 
 # Application definition
