@@ -18,8 +18,6 @@ from dotenv import load_dotenv
 load_dotenv()
 
 
-
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -33,7 +31,7 @@ SECRET_KEY = "django-insecure-&12u#u5u&10ij8_+ps=vi04vu_46wi8h=0l&aoc69(ks!z-a3s
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['quickblog-django.onrender.com']
+ALLOWED_HOSTS = ["quickblog-django.onrender.com"]
 
 
 # Application definition
@@ -139,9 +137,10 @@ MEDIA_URL = "/media/"
 
 # settings.py
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'prashu8511@gmail.com'
-EMAIL_HOST_PASSWORD = EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD') 
+EMAIL_HOST_USER = "prashu8511@gmail.com"
+EMAIL_HOST_PASSWORD = EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD")
+CSRF_TRUSTED_ORIGINS = ["https://quickblog-django.onrender.com"]
