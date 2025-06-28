@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>🔥 My Blog</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .animate-card {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .animate-card:hover {
+      transform: translateY(-6px) scale(1.03);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.25);
+    }
+    .card-gradient:nth-child(4n+1) {
+      background: linear-gradient(to right, #ffecd2, #fcb69f);
+      color: #2d2d2d;
+    }
+    .card-gradient:nth-child(4n+2) {
+      background: linear-gradient(to right, #a1c4fd, #c2e9fb);
+      color: #1a1a1a;
+    }
+    .card-gradient:nth-child(4n+3) {
+      background: linear-gradient(to right, #d4fc79, #96e6a1);
+      color: #1a1a1a;
+    }
+    .card-gradient:nth-child(4n+4) {
+      background: linear-gradient(to right, #fbc2eb, #a6c1ee);
+      color: #1a1a1a;
+    }
+    .card-gradient h2, .card-gradient p, .card-gradient div {
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    }
+  </style>
+</head>
+<body class="bg-gray-100 text-gray-900 font-sans">
+
+  <!-- Navbar -->
+  <nav class="bg-white shadow-md p-4 flex flex-col sm:flex-row sm:justify-between sm:items-center sticky top-0 z-10 space-y-3 sm:space-y-0">
+    <h1 class="text-3xl font-bold text-indigo-600 tracking-wide">🔥 QuickBlog</h1>
+    <form method="GET" action="{% url 'search' %}" class="w-full sm:w-auto">
+      <input type="text" name="search" placeholder="🔍 Search by title..." class="w-full sm:w-72 px-4 py-2 rounded-full border border-indigo-300 focus:outline-none focus:ring-2 focus:ring-indigo-400 transition" />
+    </form>
+    <div class="space-x-3 flex flex-wrap items-center justify-center">
+      <a href="{% url 'payment' %}" class="px-4 py-2 bg-yellow-400 text-black rounded-full hover:bg-yellow-500 transition">QR Generator</a>
+      <a href="{% url 'donation' %}" class="px-4 py-2 bg-pink-500 text-white rounded-full hover:bg-pink-600 transition">Donate</a>
+      {% if user.is_authenticated %}
+        <a href="{% url 'logout' %}" class="px-4 py-2 bg-green-500 text-white rounded-full hover:bg-green-600 transition">Logout</a>
+      {% else %}
+        <a href="{% url 'loginUser' %}" class="px-4 py-2 bg-indigo-500 text-white rounded-full hover:bg-indigo-600 transition">Login</a>
+        <a href="{% url 'register' %}" class="px-4 py-2 bg-green-500 text-white rounded-full hover:bg-green-600 transition">Register</a>
+      {% endif %}
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="bg-gradient-to-r from-fuchsia-500 via-indigo-500 to-sky-500 text-white text-center py-12 px-6">
+    <h2 class="text-4xl font-extrabold mb-2">Explore Creative Blogs by Category</h2>
+    <p class="text-lg">Colorful, Smart & Coded with 💡</p>
+  </section>
+
+  <!-- Main Content -->
+  <div class="max-w-7xl mx-auto px-4 py-10 grid grid-cols-1 md:grid-cols-4 gap-8">
+
+    <!-- Sidebar Category -->
+    <aside class="md:col-span-1">
+      <div class="sticky top-24 bg-white rounded-2xl shadow-lg p-6">
+        <h3 class="text-xl font-bold mb-4 text-indigo-600">📂 Categories</h3>
+        <ul class="space-y-3 text-sm font-medium">
+          <li><a href="{% url 'filter' %}?category=tech" class="block hover:text-indigo-500">🖥️ Technology</a></li>
+          <li><a href="{% url 'filter' %}?category=life" class="block hover:text-indigo-500">🌿 Lifestyle</a></li>
+          <li><a href="{% url 'filter' %}?category=edu" class="block hover:text-indigo-500">🎓 Education</a></li>
+          <li><a href="{% url 'filter' %}?category=travel" class="block hover:text-indigo-500">✈️ Travel</a></li>
+          <li><a href="{% url 'filter' %}?category=food" class="block hover:text-indigo-500">🍔 Food</a></li>
+          <li><a href="{% url 'filter' %}?category=code" class="block hover:text-indigo-500">💻 Programming</a></li>
+          <li><a href="{% url 'filter' %}?category=music" class="block hover:text-indigo-500">🎵 Music</a></li>
+          <li><a href="{% url 'filter' %}?category=movies" class="block hover:text-indigo-500">🎬 Movies</a></li>
+          <li><a href="{% url 'filter' %}?category=personal" class="block hover:text-indigo-500">📖 Personal Dev</a></li>
+          <li><a href=".." class="block text-red-500 hover:text-red-600 font-semibold">🔄 Show All</a></li>
+        </ul>
+      </div>
+    </aside>
+
+    <!-- Blog Cards -->
+    <main class="md:col-span-3 grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      {% for d in data %}
+      <div class="rounded-2xl overflow-hidden animate-card card-gradient p-6 flex flex-col justify-between shadow-2xl">
+        <div>
+          <h2 class="text-2xl font-bold mb-2">{{ d.title }}</h2>
+          <p class="mb-3">{{ d.description|truncatewords:18 }}</p>
+        </div>
+        <div class="text-sm opacity-80 mb-3">
+          ✍️ {{ d.author }} <br> 📅 {{ d.date }}
+        </div>
+        <a href="{% url 'blog_page' d.id %}" class="self-start bg-white text-black px-4 py-2 rounded-full font-semibold hover:bg-black hover:text-white transition-all">Read Full Blog →</a>
+      </div>
+      {% endfor %}
+    </main>
+
+  </div>
+
+</body>
+</html>

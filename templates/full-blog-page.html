@@ -1,0 +1,60 @@
+<!-- templates/blog_detail.html -->
+{% include 'header.html' %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>{{ data.title }}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+{% comment %}
+You can pass blog ID as data.id from view. We’ll pick a background using modulo.
+Example logic in Django view:
+    bg_classes = [
+        'from-blue-50 via-sky-100 to-blue-200',
+        'from-teal-50 via-green-100 to-emerald-200',
+        'from-indigo-50 via-purple-100 to-violet-200',
+        'from-amber-50 via-yellow-100 to-orange-200',
+        'from-slate-100 via-gray-200 to-zinc-200'
+    ]
+    selected_bg = bg_classes[data.id % len(bg_classes)]
+    return render(request, 'blog_detail.html', {'data': data, 'bg': selected_bg})
+{% endcomment %}
+
+<body class="bg-gradient-to-br {{ bg }} text-gray-800">
+
+  <div class="max-w-5xl mx-auto px-4 py-16">
+
+    <!-- Blog Card -->
+    <div class="bg-white/90 backdrop-blur-sm rounded-2xl shadow-2xl p-10 md:p-14 transition-all duration-300">
+
+      <!-- Title -->
+      <h1 class="text-4xl md:text-5xl font-bold mb-6 text-blue-800 leading-tight tracking-tight">{{ data.title }}</h1>
+
+      <!-- Meta Info -->
+      <div class="text-sm text-gray-600 mb-8">
+        ✍️ <span class="font-semibold">{{ data.author }}</span> &nbsp;&nbsp;|&nbsp;&nbsp; 📅 {{ data.date }}
+      </div>
+
+      <!-- Image -->
+      {% if data.image %}
+      <div class="rounded-xl overflow-hidden shadow-lg mb-8">
+        <img src="/media/{{ data.image }}" alt="Blog Image" class="w-full object-cover max-h-[500px]" />
+      </div>
+      {% endif %}
+
+      <!-- Description -->
+      <h2 class="text-xl font-semibold mb-4 text-gray-700 italic">{{ data.description }}</h2>
+
+      <!-- Content -->
+      <div class="prose prose-lg max-w-none prose-sky text-gray-800 leading-relaxed">
+        {{ data.content | safe }}
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
